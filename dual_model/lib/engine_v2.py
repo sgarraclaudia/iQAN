@@ -32,7 +32,7 @@ def train(loader, model, optimizer, logger, epoch, print_freq=10, dual_training=
         new_ids = Variable(new_ids).detach()
         target_question = Variable(target_question.cuda())
         input_visual = Variable(sample['visual'].cuda())
-        target_answer = Variable(sample['answer'].cuda(async=True))
+        target_answer = Variable(sample['answer'].cuda(non_blocking=True))
         
         # compute output
         output =  model(input_visual, target_question, target_answer)
@@ -124,9 +124,9 @@ def validate(loader, model, logger, epoch=0, print_freq=100):
         target_question = sample['question']
         # To arrange the length of mini-batch by the descending order of question length
         new_ids, lengths = process_lengths_sort(target_question) 
-        target_question = Variable(target_question.cuda(async=True), volatile=True)
-        input_visual = Variable(sample['visual'].cuda(async=True), volatile=True)
-        target_answer = Variable(sample['answer'].cuda(async=True), volatile=True)
+        target_question = Variable(target_question.cuda(non_blocking=True), volatile=True)
+        input_visual = Variable(sample['visual'].cuda(non_blocking=True), volatile=True)
+        target_answer = Variable(sample['answer'].cuda(non_blocking=True), volatile=True)
         
         # compute output
         output =  model(input_visual, target_question, target_answer)
@@ -185,10 +185,10 @@ def evaluate(loader, model, logger, print_freq=10, sampling_num=5):
     for i, sample in enumerate(loader):
         batch_size = sample['visual'].size(0)
         # measure data loading time
-        input_visual = Variable(sample['visual'].cuda(async=True), volatile=True )
-        input_answer = Variable(sample['answer'].cuda(async=True), volatile=True)
+        input_visual = Variable(sample['visual'].cuda(non_blocking=True), volatile=True )
+        input_answer = Variable(sample['answer'].cuda(non_blocking=True), volatile=True)
         target_answer = sample['answer']
-        input_question = Variable(sample['question'].cuda(async=True), volatile=True)
+        input_question = Variable(sample['question'].cuda(non_blocking=True), volatile=True)
         output_answer, g_answers, g_answers_score, generated_q = model(input_visual, input_question, input_answer)
         bleu_score = calculate_bleu_score(generated_q.cpu().data, sample['question'], loader.dataset.wid_to_word)
         acc1, acc5, acc10 = utils.accuracy(output_answer.cpu().data, target_answer, topk=(1, 5, 10))

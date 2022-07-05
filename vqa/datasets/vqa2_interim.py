@@ -35,7 +35,7 @@ def interim(questions, split='train', annotations=[]):
 
 def selected_interim(questions, split='train', annotations=[]):
     print('Selected interim', split)
-    path_question_type = './data/selected_question_types.txt'
+    path_question_type = '/content/iQAN/data/selected_question_types.txt'
     with open(path_question_type, 'r') as f:
         selected_question_types = f.read().splitlines()
         selected_question_types = [item for item in selected_question_types if not item.startswith('#')]
@@ -69,6 +69,8 @@ def vqa_interim(dir_vqa, select_questions=False):
     or train, val, trainval : [[question_id, image_name, question, MC_answer, answer] ... ]
     or test, test-dev :       [[question_id, image_name, question, MC_answer] ... ]
     '''
+
+    dir_vqa='/content/iQAN/data/vqa2'
 
     interim_subfolder_name = 'selected_interim' if select_questions else 'interim'
     interim_function = selected_interim if select_questions else interim

@@ -120,7 +120,7 @@ def main():
     }
     if args.path_opt is not None:
         with open(args.path_opt, 'r') as handle:
-            options_yaml = yaml.load(handle)
+            options_yaml = yaml.full_load(handle)
         options = utils.update_values(options, options_yaml)
 
     if 'model' not in options.keys():

@@ -171,11 +171,11 @@ class VQA2(AbstractVQA):
         dir_ann = os.path.join(self.dir_raw, 'annotations')
         os.system('mkdir -p '+dir_zip)
         os.system('mkdir -p '+dir_ann)
-        os.system('wget http://visualqa.org/data/mscoco/vqa/v2_Questions_Train_mscoco.zip -P '+dir_zip)
-        os.system('wget http://visualqa.org/data/mscoco/vqa/v2_Questions_Val_mscoco.zip -P '+dir_zip)
-        os.system('wget http://visualqa.org/data/mscoco/vqa/v2_Questions_Test_mscoco.zip -P '+dir_zip)
-        os.system('wget http://visualqa.org/data/mscoco/vqa/v2_Annotations_Train_mscoco.zip -P '+dir_zip)
-        os.system('wget http://visualqa.org/data/mscoco/vqa/v2_Annotations_Val_mscoco.zip -P '+dir_zip)
+        os.system('wget https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Questions_Train_mscoco.zip -P '+dir_zip)
+        os.system('wget https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Questions_Val_mscoco.zip -P '+dir_zip)
+        os.system('wget https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Questions_Test_mscoco.zip -P '+dir_zip)
+        os.system('wget https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Annotations_Train_mscoco.zip -P '+dir_zip)
+        os.system('wget https://s3.amazonaws.com/cvmlp/vqa/mscoco/vqa/v2_Annotations_Val_mscoco.zip -P '+dir_zip)
         os.system('unzip '+os.path.join(dir_zip, 'v2_Questions_Train_mscoco.zip')+' -d '+dir_ann)
         os.system('unzip '+os.path.join(dir_zip, 'v2_Questions_Val_mscoco.zip')+' -d '+dir_ann)
         os.system('unzip '+os.path.join(dir_zip, 'v2_Questions_Test_mscoco.zip')+' -d '+dir_ann)
@@ -193,7 +193,7 @@ class VQA2(AbstractVQA):
                        +os.path.join(dir_ann, 'OpenEnded_mscoco_test2015_questions.json'))
         os.system('mv '+os.path.join(dir_ann, 'v2_OpenEnded_mscoco_test-dev2015_questions.json')+' '
                        +os.path.join(dir_ann, 'OpenEnded_mscoco_test-dev2015_questions.json'))
-
+    
     def _interim(self, select_questions=False):
         vqa2_interim(self.opt['dir'], select_questions=select_questions)
 
@@ -232,7 +232,7 @@ class VQAVisualGenome(data.Dataset):
         self.dataset_vgenome.dataset = data_vg_new
         print('-> {} items left in visual genome'.format(len(self.dataset_vgenome)))
         print('-> {} items total in vqa+vg'.format(len(self)))
-                
+  
 
     def __getitem__(self, index):
         if index < len(self.dataset_vqa):
