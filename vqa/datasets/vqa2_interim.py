@@ -70,7 +70,7 @@ def vqa_interim(dir_vqa, select_questions=False):
     or test, test-dev :       [[question_id, image_name, question, MC_answer] ... ]
     '''
 
-    dir_vqa='/content/iQAN/data/vqa2'
+    dir_vqa='/content/iQAN/data/vqa2/'
 
     interim_subfolder_name = 'selected_interim' if select_questions else 'interim'
     interim_function = selected_interim if select_questions else interim

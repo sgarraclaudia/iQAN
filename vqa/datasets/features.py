@@ -17,7 +17,7 @@ class FeaturesDataset(data.Dataset):
         if opt.get('conv', False):
             self.dir_extract += '_conv'
 
-        self.path_hdf5 = os.path.join(self.dir_extract,
+        self.path_hdf5 = os.path.join('/content/iQAN/' + self.dir_extract,
                                       data_split + 'set.hdf5')
         assert os.path.isfile(self.path_hdf5), \
                'File not found in {}, you must extract the features first with extract.py'.format(self.path_hdf5)
@@ -27,7 +27,7 @@ class FeaturesDataset(data.Dataset):
         self.index_to_name, self.name_to_index = self._load_dicts()
 
     def _load_dicts(self):
-        self.path_fname = os.path.join(self.dir_extract,
+        self.path_fname = os.path.join('/content/iQAN/' + self.dir_extract,
                                        self.data_split + 'set.txt')
         with open(self.path_fname, 'r') as handle:
             self.index_to_name = handle.readlines()
