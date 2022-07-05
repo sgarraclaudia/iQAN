@@ -25,18 +25,18 @@ class COCOImages(AbstractImagesDataset):
     def __init__(self, data_split, opt, transform=None, loader=default_loader):
         super(COCOImages, self).__init__(data_split, opt, transform, loader)
         self.split_name = split_name(self.data_split)
-        self.dir_split = os.path.join(self.dir_raw, self.split_name)
+        self.dir_split = os.path.join(self.dir_raw, split_name(self.data_split))
         self.dataset = ImagesFolder(self.dir_split, transform=self.transform, loader=self.loader)
         self.name_to_index = self._load_name_to_index()
 
     def _raw(self):
         if self.data_split in ['train', 'val']:
-            os.system('wget http://msvocds.blob.core.windows.net/coco2014/{}.zip -P {}'.format(self.split_name, self.dir_raw))
+            print("Caricamento train/val")#os.system('wget http://msvocds.blob.core.windows.net/coco2014/{}.zip -P {}'.format(split_name(self.data_split), self.dir_raw))
         elif self.data_split == 'test':
-            os.execute('wget http://msvocds.blob.core.windows.net/coco2015/test2015.zip -P '+self.dir_raw)
+            print("Caricamento test")#os.execute('wget http://msvocds.blob.core.windows.net/coco2015/test2015.zip -P '+self.dir_raw)
         else:
             assert False, 'data_split {} not exists'.format(self.data_split)
-        os.execute('unzip '+os.path.join(self.dir_raw, self.split_name+'.zip')+' -d '+self.dir_raw)
+        print("Unzip")#os.execute('unzip '+os.path.join(self.dir_raw, split_name(self.data_split)+'.zip')+' -d '+self.dir_raw)
 
     def _load_name_to_index(self):
         self.name_to_index = {name:index for index, name in enumerate(self.dataset.imgs)}
@@ -44,7 +44,7 @@ class COCOImages(AbstractImagesDataset):
 
     def __getitem__(self, index):
         item = self.dataset[index]
-        item['name'] = os.path.join(self.split_name, item['name'])
+        item['name'] = os.path.join(split_name(self.data_split), item['name'])
         return item
 
     def __len__(self):

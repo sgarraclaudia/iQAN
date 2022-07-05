@@ -14,9 +14,18 @@ def is_image_file(filename):
 
 def make_dataset(dir):
     images = []
-    for fname in os.listdir(dir):
-        if is_image_file(fname):
-            images.append(fname)
+    if self.split_name=='train':
+        for fname in os.listdir("/content/iQAN/data/coco/raw/train2014/"):
+            if is_image_file(fname):
+                images.append(fname)
+    elif self.split_name=='val':
+        for fname in os.listdir("/content/iQAN/data/coco/raw/val2014/"):
+            if is_image_file(fname):
+                images.append(fname)
+    else:
+        for fname in os.listdir("/content/iQAN/data/coco/raw/test/"):
+            if is_image_file(fname):
+                images.append(fname)
     return images
 
 

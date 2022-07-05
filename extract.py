@@ -34,7 +34,7 @@ parser.add_argument('--arch', '-a', default='resnet152',
 parser.add_argument('--conv', action='store_true', help='Whether to output the conv feature map')
 parser.add_argument('--workers', default=4, type=int, 
                     help='number of data loading workers (default: 4)')
-parser.add_argument('--batch_size', '-b', default=80, type=int, 
+parser.add_argument('--batch_size', '-b', default=10, type=int, 
                     help='mini-batch size (default: 80)')
 parser.add_argument('--mode', default='both', type=str,
                     help='Options: att | noatt | (default) both')
@@ -63,7 +63,7 @@ def main():
             raise ValueError('"coco" string not in dir_data')
         dataset = datasets.COCOImages(args.data_split, dict(dir=args.dir_data), 
             transform=transforms.Compose([
-                transforms.Scale(args.size),
+                transforms.Resize(args.size),
                 transforms.CenterCrop(args.size),
                 transforms.ToTensor(),
                 normalize,
@@ -75,7 +75,7 @@ def main():
             raise ValueError('"vgenome" string not in dir_data')
         dataset = datasets.VisualGenomeImages(args.data_split, dict(dir=args.dir_data), 
             transform=transforms.Compose([
-                transforms.Scale(args.size),
+                transforms.Resize(args.size),
                 transforms.CenterCrop(args.size),
                 transforms.ToTensor(),
                 normalize,
@@ -85,7 +85,7 @@ def main():
             raise ValueError('"clevr" string not in dir_data')
         dataset = datasets.CLEVRImages(args.data_split, dict(dir=args.dir_data), 
             transform=transforms.Compose([
-                transforms.Scale(args.size),
+                transforms.Resize(args.size),
                 transforms.CenterCrop(args.size),
                 transforms.ToTensor(),
                 normalize,
