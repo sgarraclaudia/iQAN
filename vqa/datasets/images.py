@@ -14,16 +14,16 @@ def is_image_file(filename):
 
 def make_dataset(dir):
     images = []
-    if self.split_name=='train':
+    if 'train' in dir:
         for fname in os.listdir("/content/iQAN/data/coco/raw/train2014/"):
             if is_image_file(fname):
                 images.append(fname)
-    elif self.split_name=='val':
+    elif 'val' in dir:
         for fname in os.listdir("/content/iQAN/data/coco/raw/val2014/"):
             if is_image_file(fname):
                 images.append(fname)
     else:
-        for fname in os.listdir("/content/iQAN/data/coco/raw/test/"):
+        for fname in os.listdir("/content/iQAN/data/coco/raw/test2015/"):
             if is_image_file(fname):
                 images.append(fname)
     return images
@@ -48,11 +48,25 @@ class ImagesFolder(data.Dataset):
     def __getitem__(self, index):
         item = {}
         item['name'] = self.imgs[index] 
-        item['path'] = os.path.join(self.root, item['name'])
-        if self.loader is not None:
-            item['visual']  = self.loader(item['path'])
-            if self.transform is not None:
-                item['visual'] = self.transform(item['visual'])
+        if 'train2014' in self.root:
+          item['path'] = os.path.join('/content/iQAN/data/coco/raw/train2014/', item['name'])
+          if self.loader is not None:
+              item['visual']  = self.loader(item['path'])
+              if self.transform is not None:
+                  item['visual'] = self.transform(item['visual'])
+        if 'val2014' in self.root:
+          item['path'] = os.path.join('/content/iQAN/data/coco/raw/val2014/', item['name'])
+          if self.loader is not None:
+              item['visual']  = self.loader(item['path'])
+              if self.transform is not None:
+                  item['visual'] = self.transform(item['visual'])
+        if 'test2015' in self.root:
+          item['path'] = os.path.join('/content/iQAN/data/coco/raw/test2015/', item['name'])
+          if self.loader is not None:
+              item['visual']  = self.loader(item['path'])
+              if self.transform is not None:
+                  item['visual'] = self.transform(item['visual'])
+        
         return item
 
     def __len__(self):

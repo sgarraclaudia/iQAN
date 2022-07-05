@@ -34,7 +34,7 @@ parser.add_argument('--arch', '-a', default='resnet152',
 parser.add_argument('--conv', action='store_true', help='Whether to output the conv feature map')
 parser.add_argument('--workers', default=4, type=int, 
                     help='number of data loading workers (default: 4)')
-parser.add_argument('--batch_size', '-b', default=10, type=int, 
+parser.add_argument('--batch_size', '-b', default=8, type=int, 
                     help='mini-batch size (default: 80)')
 parser.add_argument('--mode', default='both', type=str,
                     help='Options: att | noatt | (default) both')
