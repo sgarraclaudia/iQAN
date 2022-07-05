@@ -77,7 +77,7 @@ def factory(opt, cuda=True, data_parallel=True, define_forward=True):
 
     # As utilizing the pretrained_model on 224 image, 
     # when applied on 448 images, please set the corresponding [dilation]
-    pdb.set_trace()
+    #pdb.set_trace()
     set_dilation(model, opt.get('dilation', 1))
 
     # To use the factory to retrieve the original model
