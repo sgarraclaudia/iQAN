@@ -16,6 +16,7 @@ import math
 import pickle
 from nltk import pos_tag
 import nltk
+nltk.download("add")
 #import pprint
 
 def extract_concepts(examples):
@@ -211,11 +212,11 @@ def vqa_processed(params):
  
     # An example is a tuple (question, image, answer)
     # /!\ test and test-dev have no answer
-    trainset = json.load(open(path_train, 'r'))
+    trainset = json.load(open('/content/iQAN/' + path_train, 'r'))
     if params['trainsplit'] == 'train':
-        valset = json.load(open(path_val, 'r'))
-    testset    = json.load(open(path_test, 'r'))
-    testdevset = json.load(open(path_testdev, 'r'))
+        valset = json.load('/content/iQAN/' +open(path_val, 'r'))
+    testset    = json.load('/content/iQAN/' +open(path_test, 'r'))
+    testdevset = json.load('/content/iQAN/' +open(path_testdev, 'r'))
 
     #####################################################
     ## Preprocess examples (questions and answers)
