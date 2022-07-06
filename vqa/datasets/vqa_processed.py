@@ -16,7 +16,7 @@ import math
 import pickle
 from nltk import pos_tag
 import nltk
-nltk.download("add")
+nltk.download("all")
 #import pprint
 
 def extract_concepts(examples):
