@@ -214,9 +214,9 @@ def vqa_processed(params):
     # /!\ test and test-dev have no answer
     trainset = json.load(open('/content/iQAN/' + path_train, 'r'))
     if params['trainsplit'] == 'train':
-        valset = json.load('/content/iQAN/' +open(path_val, 'r'))
-    testset    = json.load('/content/iQAN/' +open(path_test, 'r'))
-    testdevset = json.load('/content/iQAN/' +open(path_testdev, 'r'))
+        valset = json.load(open('/content/iQAN/' +path_val, 'r'))
+    testset    = json.load(open('/content/iQAN/' +path_test, 'r'))
+    testdevset = json.load(open('/content/iQAN/' +path_testdev, 'r'))
 
     #####################################################
     ## Preprocess examples (questions and answers)
